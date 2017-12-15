@@ -1,0 +1,150 @@
+<function name="mnsuk-converter-nlu" products="all"
+	modified-by="data-explorer-admin" type="converter-java" type-in="application/vxml-unnormalized"
+	type-out="application/vxml-unnormalized" max-elt-id="33" modified="1488902251">
+	<prototype>
+		<label name="label">MNSUK Watson NLU Converter</label>
+		<description name="description">
+<![CDATA[
+      Analyze text to returns both overall sentiment and emotion for a document, and extracted entities with targeted sentiment and emotion. Supports custom models trained in Watson Knoweldge Studio.
+      
+      This is a subset of the functionality offered by the Watson Natural Language Understanding service (https://www.ibm.com/watson/services/natural-language-understanding/).
+      Converter version: !PROJECT_VERSION
+    ]]>
+</description>
+<!-- Global -->
+<declare name="username" type="string">
+<label>Service Credentials - username</label>
+<description>
+        User name to use for authentication with your Watson NLU service instance.     
+</description>
+</declare>
+<declare name="password" type="password">
+<label>Service Credentials - password</label>
+<description>
+        Password to use for authentication with your Watson NLU service instance.    
+</description>
+</declare>
+<declare name="enable-sentiment-analysis" type="flag">
+<label>Enable Document Sentiment</label>
+<description>
+Setting this to true will enable extracting positive/negative sentiment from the document textual content.
+</description>
+</declare>
+<declare name="enable-emotion-analysis" type="flag">
+<label>Enable Document Emotion</label>
+<description>
+Setting this to true will enable detection of emotion conveyed by the entire body of text.
+</description>
+</declare>
+<proto-section section="Entity Extraction" toggle-section="toggle-section">
+<declare name="enable-entity-extraction" type="flag">
+<label>Enable Entity Extraction</label>
+<description>
+Setting this to true will enable discovery and extraction of entities from any textual content.
+</description>
+</declare>
+<declare name="model" type="string" initial-value="default">
+			<label>NLU entity analysis model</label>
+			<description>
+<![CDATA[
+        The model to be used to analyze the text. Used if you have a Watson Knowledge Studio custom 
+        trained model, in which case enter its id string here.
+      ]]>
+			</description>
+</declare>
+<declare name="enable-targeted-sentiment" type="flag">
+<label>Enable Targeted Sentiment</label>
+<description>
+<![CDATA[Setting this to true will enable extracting positive/negative sentiment targeted at specific entities.
+This option is ignored if a custom model is specified.
+]]>
+</description>
+</declare>
+<declare name="enable-targeted-emotion" type="flag">
+<label>Enable Targeted Emotion</label>
+<description>
+<![CDATA[Setting this to true will enable detection of emotion targeted at specific entities.
+This option is ignored if a custom model is specified.
+]]>
+</description>
+</declare>
+<declare name="enable-entity-offsets" type="flag">
+<label>Enable Entity Offsets</label>
+<description>
+<![CDATA[Setting this to true will enable output of the character offsets in the source text for each entity (useful for exports and custom text highlighting).
+]]>
+</description>
+</declare>
+</proto-section>
+
+<declare name="exclude-by-default" type="flag">
+			<label>Exclude Contents By Default</label>
+			<description>
+<![CDATA[
+        By default this converter uses a black list to exclude specific
+        content nodes from being analyzed (as specified in the 'Content List').
+        That is, only contents explicitly listed are ignored by this converter.
+        By checking this option, the behavior is flipped, and only fields explicitly
+        white-listed below will be processed by the converter.
+      ]]>
+			</description>
+		</declare>
+		<declare name="content-list" type="string-area">
+			<label>Content List</label>
+			<description>
+<![CDATA[
+        Provide a newline-separated list of content field names to either include
+        or exclude from annotation. If the 'Exclude Contents By Default' box is checked,
+        this acts as a white list, and any content fields not listed will be ignored.
+        If the box is not checked, this acts as a black list, and all content fields will be
+        analyzed unless specifically excluded here. Note that in the converter content fields
+        are concatanated together to send to NLU as one document.
+        For example, ]]>
+				<code>
+					snippet
+					author
+				</code>
+				.
+
+			</description>
+		</declare>
+
+	</prototype>
+	<parser type="java">
+		<option name="plugin-name">nlu.plugin@nlu-converter</option>
+		<option name="username">
+			<value-of select="$username" />
+		</option>
+		<option name="password">
+			<value-of select="$password" />
+		</option>    
+	    <option name="enable-sentiment-analysis">
+			<value-of select="$enable-sentiment-analysis" />
+		</option>
+		<option name="enable-emotion-analysis">
+			<value-of select="$enable-emotion-analysis" />
+		</option>
+		<option name="enable-entity-extraction">
+			<value-of select="$enable-entity-extraction" />
+		</option>
+		<option name="model">
+			<value-of select="$model" />
+		</option>
+		<option name="enable-targeted-emotion">
+			<value-of select="$enable-targeted-emotion" />
+		</option>
+		<option name="enable-entity-offsets">
+			<value-of select="$enable-entity-offsets" />
+		</option>
+		<option name="enable-targeted-sentiment">
+			<value-of select="$enable-targeted-sentiment" />
+		</option>
+		<option name="exclude-by-default">
+			<value-of select="$exclude-by-default" />
+		</option>
+		<option name="content-list">
+			<value-of select="$content-list" />
+		</option>
+	
+	</parser>
+</function>

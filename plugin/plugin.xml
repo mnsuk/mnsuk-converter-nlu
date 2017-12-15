@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 0.5" "http://jpf.sourceforge.net/plugin_0_5.dtd">
+<plugin id="nlu.plugin" version="!PROJECT_VERSION">
+   <attributes>
+      <attribute id="name" value="nlu-converter"/>
+      <attribute id="description" value="Demo Java Converter"/>
+   </attributes>
+  <requires>
+    <import plugin-id="main.plugin" />
+  </requires>
+  <runtime>    
+     <!--
+     	<library id="bootstrap-classes" path="bin/" type="code"/>
+     -->
+      <library id="converter-nlu" path="lib/!PROJECT_JAR" type="code"/>
+      <library id="watson-sdk" path="lib/java-sdk-4.1.0-jar-with-dependencies.jar" type="code"/>
+  </runtime>
+  <extension plugin-id="main.plugin" point-id="com.ibm.dataexplorer.converter.ByteArrayConverter"
+             id="nlu-converter">
+    <parameter id="class" value="com.mnsuk.converter.NLU"/>
+  </extension>
+</plugin>

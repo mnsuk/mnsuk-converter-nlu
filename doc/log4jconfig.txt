@@ -1,0 +1,50 @@
+<log4j:configuration>
+<category name="com.vivisimo.parser">
+<priority value="OFF" />
+</category>
+<category name="com.ibm.dataexplorer.converter">
+<priority value="OFF" />
+</category>
+<category name="com.ibm.dataexplorer.converters.perceptive">
+<priority value="OFF" />
+</category>
+<category name="com.ibm.dataexplorer.converters.pst">
+<priority value="OFF" />
+</category>
+<category name="com.ibm.dataexplorer.converters.tika.OpenOfficeConverter">
+<priority value="OFF" />
+</category>
+<category name="com.ibm.dataexplorer.converters.tika.PdfToTextConverter">
+<priority value="OFF" />
+</category>
+<category name="com.ibm.dataexplorer.converters.tika.PptxConverter">
+<priority value="OFF" />
+</category>
+<category name="com.ibm.dataexplorer.converters.tika.Mp3Converter">
+<priority value="OFF" />
+</category>
+<category name="com.ibm.dataexplorer.converters.ByteArrayConverter">
+<priority value="TRACE" />
+</category>
+<category name="com.mnsuk.converter">
+<priority value="TRACE" />
+</category>
+<category name="com.ibm.dataexplorer.converters.wca">
+<priority value="OFF" />
+</category>
+<category name="com.ibm.dataexplorer.converters.systemt">
+<priority value="OFF" />
+</category>
+<root>
+<priority value="OFF" />
+<appender-ref ref="FILE" />
+</root>
+<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+<param name="MaxBackupIndex" value="9" />
+<param name="MaximumFileSize" value="10000000" />
+<param name="File" value="%LOGDIR/mnsuk-%TMP.log" />
+<layout class="org.apache.log4j.PatternLayout">
+<param name="ConversionPattern" value="%d [%t] %-5p %c#%M %m%n" />
+</layout>
+</appender>
+</log4j:configuration>
